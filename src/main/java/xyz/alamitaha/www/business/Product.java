@@ -57,10 +57,9 @@ public class Product {
 
 	
 
-	@OneToMany(mappedBy = "product",cascade = { CascadeType.ALL }, orphanRemoval = true)
+	@OneToMany(mappedBy = "product")
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
-	@JsonIgnore
 	private Set<Comment> comments;
 
 	public Product() {
