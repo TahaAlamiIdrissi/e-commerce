@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
@@ -36,7 +36,7 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@NotEmpty(message = "Username should not be empty")
+//	@NotEmpty(message = "Username should not be empty")
 	private String username;
 	@Email
 //	@NotEmpty(message = "Email should not be empty")
@@ -47,9 +47,14 @@ public class User {
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JsonIgnore
 	@ToString.Exclude
+	@EqualsAndHashCode.Exclude
 	private Set<Product> products;
 	
 	public User() {
 		this.products = new HashSet<Product>();
+	}
+	public void addProductToList(Product product) {
+		product.getUsers().add(this);
+		this.products.add(product);
 	}
 }

@@ -11,5 +11,5 @@ import javax.persistence.Entity;
  */
 @Entity
 public class Client extends User{
-
+	private final static boolean CLIENT = true;
 }

@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -49,13 +50,15 @@ public class Product {
 	@Lob
 	private String description;
 	private Double price;
+	private String pathToImage;
 	private Long quantity;
 	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "products")
 	@JsonIgnore
 	@ToString.Exclude
 	private Set<User> users;
 
-	
+	@Max(5)
+	private double grade;
 
 	@OneToMany(mappedBy = "product")
 	@EqualsAndHashCode.Exclude
@@ -65,10 +68,6 @@ public class Product {
 	public Product() {
 		this.users = new HashSet<User>();
 		this.comments = new HashSet<Comment>();
-	}
-	public void addUsers(User user) {
-		user.getProducts().add(this);
-		this.users.add(user);
 	}
 	public void addComments(Comment comment) {
 		this.comments.add(comment);

@@ -12,8 +12,8 @@ import lombok.AllArgsConstructor;
 import xyz.alamitaha.www.business.Comment;
 import xyz.alamitaha.www.business.Product;
 import xyz.alamitaha.www.dao.CommentRepository;
-import xyz.alamitaha.www.dao.ProductRepository;
 import xyz.alamitaha.www.service.CommentService;
+import xyz.alamitaha.www.service.ProductService;
 
 /**
  * @author ALAMI IDRISSI Taha
@@ -24,14 +24,14 @@ import xyz.alamitaha.www.service.CommentService;
 public class CommentServiceImpl implements CommentService {
 	
 	private final CommentRepository commentRepository;
-	private final ProductRepository productRepository;
+	private final ProductService productService;
 
 	@Override
 	public Comment addComment(Long productId,Comment comment) {
 		// get product id concerned with the comment
 		// add the comment to the list of comments associated with that pro
 		// add comment
-		Product product = productRepository.findById(productId).get();
+		Product product = productService.getProductById(productId);
 		product.addComments(comment);
 		comment.setProduct(product);
 		return commentRepository.save(comment);
@@ -44,9 +44,13 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public Comment deleteComment(Long id) {
+	public Comment deleteComment(Long id,Long productId) {
 		Comment comment = commentRepository.findById(id).get();
-		if(comment != null) {
+		boolean isRemoved = productService.removeCommentFromProduct(productService.getProductById(productId)
+				, id);
+	
+		
+		if(comment != null && isRemoved) {
 			commentRepository.delete(comment);
 		}
 		return comment;

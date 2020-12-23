@@ -41,6 +41,7 @@ public class LoadDatabase {
 				.title("Test Product")
 				.description("This is a description")
 				.price(2D)
+				.grade(3)
 				.quantity(10L)
 				.build();
 		

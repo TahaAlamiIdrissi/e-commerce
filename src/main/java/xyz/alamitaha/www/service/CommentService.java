@@ -20,7 +20,7 @@ public interface CommentService {
 	Comment updateComment(Comment comment);
 	
 	//delete comment
-	Comment deleteComment(Long id);
+	Comment deleteComment(Long id,Long productId);
 	
 	// get comments
 	Collection<Comment> getAllComments();

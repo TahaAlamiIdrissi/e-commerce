@@ -50,8 +50,8 @@ public class CommentController {
 		return new ResponseEntity<Comment>(commentService.addComment(productId, comment), HttpStatus.CREATED);
 	}
 	
-	@DeleteMapping("comments/{commentId}")
-	public ResponseEntity<Comment> deleteComment(@PathVariable Long commentId) {
-		return new ResponseEntity<Comment>(commentService.deleteComment(commentId), HttpStatus.OK);
+	@DeleteMapping("comments/{productId}/{commentId}")
+	public ResponseEntity<Comment> deleteComment(@PathVariable Long commentId,@PathVariable Long productId) {
+		return new ResponseEntity<Comment>(commentService.deleteComment(commentId,productId), HttpStatus.OK);
 	}
 }
